@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Cart = ({ cart, changeQuantity }) => {
-    const total = () => {
-        let price = 0;
+  const [total, setTotal] = useState();
+  useEffect(() => {
+    let price = 0;
         cart.forEach((item) => {
             price += +((item.salePrice || item.originalPrice) * item.quantity).toFixed(2);
         });
-        return price;
-    };
+    setTotal(price)   
+  }, [cart, cart.quantity])    
     return (
     <div id="books__body">
       <main id="books__main">
@@ -68,7 +69,7 @@ const Cart = ({ cart, changeQuantity }) => {
                 </div>
                 <div className= "total__item total__price">
                     <span>Total</span>
-                    <span>${(total()).toFixed(2)}</span>
+                    <span>${(total).toFixed(2)}</span>
                 </div>
                 <button className="btn btn__checkout no-cursor"
                 onClick={() => alert( `Haven't gotten around todoing it. pause @ 1:44:42` )}>
